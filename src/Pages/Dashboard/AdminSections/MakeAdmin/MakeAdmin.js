@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Alert, Button, Typography } from "@mui/material";
+import axios from "axios";
+import useAuth from '../../../../hooks/useAuth'
 
 const MakeAdmin = () => {
+    // const {user} = useAuth();
     const [success, setSuccess] = useState(false);
 
     const { handleSubmit, register, reset, formState: { errors } } = useForm();
@@ -12,11 +15,12 @@ const MakeAdmin = () => {
     const onSubmit = values => {
         const user = values.email;
         console.log(values, user);
-        fetch('https://rocky-retreat-26040.herokuapp.com/users/admin', {
-            method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(user)
-        })
+        axios.put('https://rocky-retreat-26040.herokuapp.com/users/admin', values)
+            .then(res => {
+                console.log(res.data)
+                setSuccess(true);
+            })
+        reset();
     };
 
     return (
@@ -42,7 +46,7 @@ const MakeAdmin = () => {
                 />
                 {errors.email && errors.email.message}
                 <br />
-                <Button type="submit" sx={{ mt: 3 }} variant="contained">Contained</Button>
+                <Button type="submit" sx={{ mt: 3 }} variant="contained">Make as Admin</Button>
             </form>
             {success && <Alert severity="success">Made Admin successfully!</Alert>}
         </Box>

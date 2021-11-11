@@ -38,6 +38,8 @@ import MyOrders from './GeneralSections/MyOrders/MyOrders';
 import PayCost from './GeneralSections/PayCost/PayCost';
 import PaymentIcon from '@mui/icons-material/Payment';
 import MyReview from './GeneralSections/MyReview/MyReview';
+import AdminRoute from '../Authenticate/AdminRoute/AdminRoute';
+import PrivateRoute from '../Authenticate/PrivateRoute/PrivateRoute';
 
 const drawerWidth = 240;
 
@@ -107,7 +109,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Dashboard() {
-  const { logout } = useAuth();
+  const { admin, logout, user } = useAuth();
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -122,7 +125,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', overflow: 'overlay' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -141,6 +144,7 @@ export default function Dashboard() {
           <Typography variant="h6" noWrap component="div">
             Dashboard
           </Typography>
+          <Typography variant="body2" sx={{ ml: 2 }}>({user.displayName})</Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -160,65 +164,70 @@ export default function Dashboard() {
               <ListItemText primary='Dashboard' />
             </ListItem>
           </NavLink>
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/make_admin`}>
-            <ListItem button>
-              <ListItemIcon>
-                <AdminPanelSettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Make Admin" />
-            </ListItem>
-          </NavLink>
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/add_services`}>
-            <ListItem button>
-              <ListItemIcon>
-                <AddBoxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Services" />
-            </ListItem>
-          </NavLink>
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/manage_orders`}>
-            <ListItem button>
-              <ListItemIcon>
-                <ProductionQuantityLimitsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Manage All Order" />
-            </ListItem>
-          </NavLink>
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/manage_products`}>
-            <ListItem button>
-              <ListItemIcon>
-                <ListAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="Manage All Product" />
-            </ListItem>
-          </NavLink>
+          <Divider />
+
+          {admin && <Box>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/make_admin`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Make Admin" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/add_services`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <AddBoxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add Services" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/manage_orders`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ProductionQuantityLimitsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Manage All Order" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/manage_products`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                <ListItemText primary="Manage All Product" />
+              </ListItem>
+            </NavLink>
+          </Box>}
 
           {/* general sections */}
-          <Divider />
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_orders`}>
-            <ListItem button>
-              <ListItemIcon>
-                <ListAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="My Orders" />
-            </ListItem>
-          </NavLink>
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/pay_cost`}>
-            <ListItem button>
-              <ListItemIcon>
-                <PaymentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Pay Cost" />
-            </ListItem>
-          </NavLink>
-          <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_review`}>
-            <ListItem button>
-              <ListItemIcon>
-                <ListAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="My Review" />
-            </ListItem>
-          </NavLink>
+          {!admin && <Box>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_orders`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Orders" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/pay_cost`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PaymentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Pay Cost" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_review`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListAltIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Review" />
+              </ListItem>
+            </NavLink>
+          </Box>}
 
           <Divider />
 
@@ -259,29 +268,29 @@ export default function Dashboard() {
               sapien faucibus et molestie ac.
             </Typography>
           </Route>
-          <Route path={`${path}/make_admin`}>
+          <AdminRoute path={`${path}/make_admin`}>
             <MakeAdmin />
-          </Route>
-          <Route path={`${path}/add_services`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/add_services`}>
             <AddService />
-          </Route>
-          <Route path={`${path}/manage_orders`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manage_orders`}>
             <ManageOrders />
-          </Route>
-          <Route path={`${path}/manage_products`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manage_products`}>
             <ManageProducts />
-          </Route>
+          </AdminRoute>
 
           {/* general sections */}
-          <Route path={`${path}/my_orders`}>
+          <PrivateRoute path={`${path}/my_orders`}>
             <MyOrders />
-          </Route>
-          <Route path={`${path}/pay_cost`}>
+          </PrivateRoute>
+          <PrivateRoute path={`${path}/pay_cost`}>
             <PayCost />
-          </Route>
-          <Route path={`${path}/my_review`}>
+          </PrivateRoute>
+          <PrivateRoute path={`${path}/my_review`}>
             <MyReview />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Box>
     </Box >

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import Products from '../../Shared/Products/Products';
 
 const Services = () => {
@@ -13,8 +13,10 @@ const Services = () => {
             });
     }, []);
     return (
-        <Container>
-            <h2>this is products</h2>
+        <Container sx={{ my: 5 }}>
+            <Typography variant='h4' sx={{ mb: 3 }}>
+                Products
+            </Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {services.map((service) =>
                     <Products service={service} key={service._id} />

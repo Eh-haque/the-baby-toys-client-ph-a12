@@ -2,8 +2,9 @@ import { Container, Typography, TextField, Button, CircularProgress, Alert } fro
 import React, { useState } from 'react';
 import { Grid } from '@mui/material';
 // import login from '../../../images/login.png'
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { NavLink, useLocation, useHistory, Link } from 'react-router-dom';
 import useAuth from './../../../hooks/useAuth';
+import { Box } from '@mui/system';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
@@ -31,7 +32,7 @@ const Login = () => {
         <Container>
             <Grid container spacing={2}>
                 <Grid item sx={{ mt: 8 }} xs={12} md={6}>
-                    <Typography variant="body1" gutterBottom>Login</Typography>
+                    <Typography variant="h4" gutterBottom>Login</Typography>
                     <form onSubmit={handleLoginSubmit}>
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -59,8 +60,11 @@ const Login = () => {
                         {user?.email && <Alert severity="success">Login successfully!</Alert>}
                         {authError && <Alert severity="error">{authError}</Alert>}
                     </form>
-                    <p>------------------------</p>
-                    <Button onClick={handleGoogleSignIn} variant="contained">Google Sign In</Button>
+                    <hr /> <br />
+                    <Box sx={{ display: 'flex',flexBasis: 3, flexDirection: 'column' , width: '75%' , mx: 'auto'}}>
+                        <Button onClick={handleGoogleSignIn} variant="contained">Google Sign In</Button>
+                        <Link to='/' style={{ textDecoration: 'none' }}><Button sx={{mt:5}} variant='contained'>Go Home</Button></Link>
+                    </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img style={{ width: '100%' }} src={"login"} alt="" />

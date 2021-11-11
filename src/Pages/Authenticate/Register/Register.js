@@ -29,7 +29,7 @@ const Register = () => {
         <Container>
             <Grid container spacing={2}>
                 <Grid item sx={{ mt: 8 }} xs={12} md={6}>
-                    <Typography variant="body1" gutterBottom>Register</Typography>
+                    <Typography variant="h4" gutterBottom>Register</Typography>
                     {!isLoading && <form onSubmit={handleLoginSubmit}>
                         <TextField
                             sx={{ width: '75%', m: 1 }}

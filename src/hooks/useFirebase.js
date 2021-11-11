@@ -1,6 +1,7 @@
 import initializeFirebase from "../Pages/Authenticate/Login/Firebase/Firebase.init";
 import { useState, useEffect } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, signOut } from "firebase/auth";
+import axios from "axios";
 
 
 // initialize firebase app
@@ -10,6 +11,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
+    const [admin, setAdmin] = useState(false);
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
@@ -28,6 +30,7 @@ const useFirebase = () => {
                     displayName: name
                 }).then(() => {
                 }).catch((error) => {
+                    setAuthError(error.message);
                 });
                 history.replace('/');
             })
@@ -82,6 +85,14 @@ const useFirebase = () => {
         return () => unsubscribed;
     }, [auth])
 
+    useEffect(() => {
+        axios.get(`https://rocky-retreat-26040.herokuapp.com/users/${user.email}`)
+        .then(res=> {
+            setAdmin(res.data.admin);
+            console.log(res.data);
+        })
+    }, [user.email])
+
     const logout = () => {
         setIsLoading(true);
         signOut(auth).then(() => {
@@ -106,6 +117,7 @@ const useFirebase = () => {
 
     return {
         user,
+        admin,
         isLoading,
         authError,
         registerUser,
