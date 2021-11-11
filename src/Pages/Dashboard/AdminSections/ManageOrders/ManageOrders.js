@@ -1,4 +1,4 @@
-import { Alert, Button, FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Alert, Button, FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
@@ -42,51 +42,54 @@ const ManageOrders = () => {
         setId(id);
     }
     return (
-        <Paper sx={{ overflow: 'scroll'}}>
-        <TableContainer>
-            <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Email</TableCell>
-                        <TableCell align="right">Address</TableCell>
-                        <TableCell align="right">Status</TableCell>
-                        <TableCell align="right">Delete</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {orders.map((row) => (
-                        <TableRow
-                            key={row._id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.email}</TableCell>
-                            <TableCell align="right">{row.address}</TableCell>
-                            <TableCell align="right">
+        <Paper>
+            <Typography variant="h4" sx={{ py: 2 }}>
+                Manage All Order
+            </Typography>
+            <TableContainer>
+                <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Address</TableCell>
+                            <TableCell align="right">Status</TableCell>
+                            <TableCell align="right">Delete</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {orders.map((row) => (
+                            <TableRow
+                                key={row._id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {row.name}
+                                </TableCell>
+                                <TableCell align="right">{row.email}</TableCell>
+                                <TableCell align="right">{row.address}</TableCell>
+                                <TableCell align="right">
 
-                                <FormControl as='form' onSubmit={handleSubmit(onSubmit)}>
-                                    <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                                        Status
-                                    </InputLabel>
-                                    <NativeSelect
-                                        defaultValue={row.status}
-                                        inputProps={{
-                                            name: 'status',
-                                            id: 'uncontrolled-native',
-                                        }}  {...register("status")}
-                                    >
-                                        <option value={row?.status} style={{ fontStyle: 'italic' }}>{row?.status}</option>
-                                        <option value='Approved'>approve</option>
-                                        <option value='Shipped'>Ship</option>
-                                    </NativeSelect>
-                                    <Button size="small" type="submit" onClick={() => handleUpdate(row._id)} variant="outlined" endIcon={<AutorenewIcon />}>
-                                        Update
-                                    </Button>
-                                </FormControl>
-                                {/* <form onSubmit={handleSubmit(onSubmit)}>
+                                    <FormControl as='form' onSubmit={handleSubmit(onSubmit)}>
+                                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                                            Status
+                                        </InputLabel>
+                                        <NativeSelect
+                                            defaultValue={row.status}
+                                            inputProps={{
+                                                name: 'status',
+                                                id: 'uncontrolled-native',
+                                            }}  {...register("status")}
+                                        >
+                                            <option value={row?.status} style={{ fontStyle: 'italic' }}>{row?.status}</option>
+                                            <option value='Approved'>approve</option>
+                                            <option value='Shipped'>Ship</option>
+                                        </NativeSelect>
+                                        <Button size="small" type="submit" onClick={() => handleUpdate(row._id)} variant="outlined" endIcon={<AutorenewIcon />}>
+                                            Update
+                                        </Button>
+                                    </FormControl>
+                                    {/* <form onSubmit={handleSubmit(onSubmit)}>
                                     <select {...register("status")}>
                                         <option value={row.status}>{row?.status}</option>
                                         <option value="Approved">approve</option>
@@ -96,19 +99,19 @@ const ManageOrders = () => {
                                         Update
                                     </Button>
                                 </form> */}
-                            </TableCell>
+                                </TableCell>
 
-                            <TableCell align="right">
-                                <Button size="small" variant="outlined" startIcon={<DeleteOutlineIcon />}>
-                                    Delete
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            {success && <Alert severity="success">Service Added successfully!</Alert>}
-        </TableContainer>
+                                <TableCell align="right">
+                                    <Button size="small" variant="outlined" startIcon={<DeleteOutlineIcon />}>
+                                        Delete
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                {success && <Alert severity="success">Service Added successfully!</Alert>}
+            </TableContainer>
         </Paper>
     );
 };
