@@ -22,7 +22,7 @@ const ManageOrders = () => {
         axios.get('https://rocky-retreat-26040.herokuapp.com/orders')
             .then((response) => {
                 setOrders(response.data)
-                console.log(response.data)
+                // console.log(response.data)
             });
     }, []);
 
@@ -66,8 +66,10 @@ const ManageOrders = () => {
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
+                            <TableCell>Product Name</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Phone</TableCell>
                             <TableCell align="right">Address</TableCell>
                             <TableCell align="right">Status</TableCell>
                             <TableCell align="right">Delete</TableCell>
@@ -80,9 +82,13 @@ const ManageOrders = () => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
+                                    {row?.order?.title}
+                                </TableCell>
+                                <TableCell align="right">
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="right">{row.email}</TableCell>
+                                <TableCell align="right">{row.price}</TableCell>
                                 <TableCell align="right">{row.address}</TableCell>
                                 <TableCell align="right">
 

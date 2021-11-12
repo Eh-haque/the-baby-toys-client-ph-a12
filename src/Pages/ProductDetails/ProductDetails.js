@@ -1,9 +1,9 @@
-import { Button, Card, CardActionArea, CardContent, CardMedia, Container, Typography, Alert, TextField, Grid, Paper } from '@mui/material';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Footer from '../Shared/Footer/Footer';
+import axios from 'axios';
 import Header from '../Shared/Header/Header';
+import { Button, Card, CardActionArea, CardContent, CardMedia, Container, Typography, Alert, TextField, Grid, Paper } from '@mui/material';
+import Footer from '../Shared/Footer/Footer';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 
@@ -11,7 +11,7 @@ import useAuth from '../../hooks/useAuth';
 const ProductDetails = () => {
 
     const { id } = useParams();
-    const [order, setOrder] = useState();
+    const [order, setOrder] = useState({});
 
     useEffect(() => {
         axios.get(`https://rocky-retreat-26040.herokuapp.com/services/${id}`)
@@ -24,27 +24,15 @@ const ProductDetails = () => {
     const { user } = useAuth();
     const [success, setSuccess] = useState(false);
 
-    /*  const [name, setName] = useState('');
-     const [email, setEmail] = useState('');
-     const [price, setPrice] = useState(''); */
-    /*  useEffect(() => {
-        const  name = user?.displayName;
-        const email = user?.email;
-        const price = order?.data?.price;
-         setName(name);
-         setEmail(email);
-         setPrice(price);
-     }, [user, order?.data?.price]); */
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         data.status = 'pending';
         data.order = order.data;
-        // data.email = user.email;
-        // data.name = user.displayName;
+        data.email = user.email;
+        data.name = user.displayName;
         axios.post('https://rocky-retreat-26040.herokuapp.com/orders', data)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setSuccess(true);
             })
         reset();
@@ -52,7 +40,7 @@ const ProductDetails = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Header />
 
             <Container sx={{ my: 5 }}>
@@ -86,27 +74,15 @@ const ProductDetails = () => {
                         <Paper sx={{ position: 'sticky', top: 0, left: 0, '& .MuiTextField-root': { m: 1, width: 'auto' } }} elevation={3}>
                             <Typography variant="h5" sx={{ pt: 3 }}>
                                 Want to Purchase?
+                            </Typography><br />
+                            <Typography variant="body1">
+                                Your Name: {user?.displayName}
                             </Typography>
+                            <Typography variant="body1">
+                                Your  Email: {user?.email}
+                            </Typography><br />
 
                             <form onSubmit={handleSubmit(onSubmit)}>
-
-                                <TextField fullWidth
-                                    id="standard-search1"
-                                    label='Your Name'
-                                    variant="standard"
-                                    value={user?.displayName}
-                                    sx={{ mx: 'auto', width: '75%' }}
-                                    {...register("name")}
-                                />
-
-                                {<TextField fullWidth
-                                    id="standard-search2"
-                                    label="Your Email"
-                                    variant="standard"
-                                    value={user?.email}
-                                    sx={{ mx: 'auto', width: '75%' }}
-                                    {...register("email")}
-                                />}
                                 <TextField fullWidth
                                     id="standard-search2"
                                     label="Type Your Address"
@@ -119,10 +95,10 @@ const ProductDetails = () => {
                                 />
                                 <TextField fullWidth
                                     id="standard-search2"
-                                    label="Product Price"
+                                    label="Type Your Phone Number"
                                     variant="standard"
                                     type="number"
-                                    value={order?.data?.price}
+                                    defaultValue={+880}
                                     sx={{ mx: 'auto', width: '75%' }}
                                     {...register("price", {
                                         required: "Required",
@@ -133,14 +109,14 @@ const ProductDetails = () => {
                                 <Button type="submit" sx={{ my: 3 }} variant="contained">Buy Now</Button>
                             </form>
                             {success && <Alert severity="success">Order Placed successfully!</Alert>}
-                            <Button sx={{ border: 'none', mb: 3 }} as={Link} to='/' variant="contained">Home</Button>
+                            <Link to='/' style={{ textDecoration: 'none' }}><Button sx={{ mb: 3 }} variant='contained'>Home</Button></Link>
                         </Paper>
                     </Grid>
                 </Grid>
             </Container>
 
             <Footer />
-        </React.Fragment>
+        </>
     );
 };
 

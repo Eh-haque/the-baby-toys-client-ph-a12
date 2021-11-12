@@ -8,14 +8,14 @@ import About from './About/About';
 
 const Home = () => {
     return (
-        <div>
+        <>
             <Header />
             <Banner />
             <Products />
             <Reviews />
             <About />
             <Footer />
-        </div>
+        </>
     );
 };
 

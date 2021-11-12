@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Alert, Button, Typography } from "@mui/material";
 import axios from "axios";
-import useAuth from '../../../../hooks/useAuth'
 
 const MakeAdmin = () => {
     // const {user} = useAuth();

@@ -89,7 +89,7 @@ const useFirebase = () => {
         axios.get(`https://rocky-retreat-26040.herokuapp.com/users/${user.email}`)
             .then(res => {
                 setAdmin(res.data.admin);
-                console.log(res.data);
+                // console.log(res.data);
             })
     }, [user.email])
 

@@ -33,7 +33,7 @@ const Products = ({ service }) => {
                     </Typography>
                     <Link as={Link} to={`/product_details/${service._id}`} style={{ textDecoration: 'none' }}>
                         <Button variant="contained">
-                            See Details
+                            Buy Now
                         </Button>
                     </Link>
                 </CardActions>

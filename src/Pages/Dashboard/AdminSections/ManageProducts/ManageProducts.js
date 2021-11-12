@@ -19,26 +19,9 @@ const ManageProducts = () => {
         axios.get('https://rocky-retreat-26040.herokuapp.com/services')
             .then((response) => {
                 setOrders(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             });
     }, []);
-
-    // const onSubmit = data => {
-    //     const proceed = window.confirm('Are you sure, you want to update status?');
-    //     if (proceed) {
-    //         axios.put(`https://rocky-retreat-26040.herokuapp.com/update_status/${id}`, data)
-    //             .then(res => {
-    //                 console.log(res.data);
-    //                 setSuccess(true);
-    //             })
-    //     }
-    //     // console.log(data)
-    // };
-
-    // useEffect(() => {
-    //     const myOrders = orders.filter((order) => order._id === order.id)
-    //     setMyOrders(myOrders)
-    // }, [orders, user.email]);
 
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure, you want to delete?');

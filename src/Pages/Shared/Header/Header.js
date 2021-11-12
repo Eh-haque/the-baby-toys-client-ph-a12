@@ -32,7 +32,7 @@ const Header = () => {
         },
         navLogo: {
             [theme.breakpoints.down('md')]: {
-                textAlign: 'right'
+                textAlign: 'left'
             }
         }
     })
@@ -80,7 +80,7 @@ const Header = () => {
                     <Toolbar>
 
                         <Typography className={navLogo} variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'left' }}>
-                            Baby Care
+                            Baby Toys
                         </Typography>
 
                         <IconButton
@@ -99,7 +99,7 @@ const Header = () => {
                         <Link className={navItem} style={{ textDecoration: 'none' }} to="/explore"><Button sx={{ color: 'white' }} variant="text">Explore</Button></Link>
 
                         {user.email && (
-                            <div style={{ marginRight: '20px' }} className={navItem}>
+                            <div style={{ marginRight: '20px', marginLeft: '10px' }} className={navItem}>
                                 <Link style={{ color: 'white', textDecoration: 'none' }} to="/dashboard">Dashboard</Link>
                             </div>)}
 
