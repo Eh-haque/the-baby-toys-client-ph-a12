@@ -10,7 +10,7 @@ const Products = ({ service }) => {
 
     return (
         <Grid item xs={2} sm={4} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card>
                 <CardActionArea>
                     <CardMedia
                         component="img"

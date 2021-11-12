@@ -8,24 +8,17 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
+import { Box } from '@mui/system';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
-    useEffect(() => {
-        axios.get('https://rocky-retreat-26040.herokuapp.com/reviews')
-            .then(res => {
-                setReviews(res.data);
-                console.log(res.data);
-            })
-    })
 
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
     const maxSteps = reviews.length;
+    // console.log(maxSteps);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -38,10 +31,17 @@ const Reviews = () => {
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
+
+    useEffect(() => {
+        axios.get('https://rocky-retreat-26040.herokuapp.com/reviews')
+            .then(res => {
+                setReviews(res.data);
+            })
+    });
+
     return (
         <Container>
-            <Typography variant="h4">Reviews</Typography>
-            {reviews.length}
+            <Typography variant="h4" sx={{ mb: 2 }}>Reviews</Typography>
 
             <AutoPlaySwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -50,18 +50,18 @@ const Reviews = () => {
                 enableMouseEvents
             >
                 {reviews.map((step, index) => (
-                    <div key={step._id}>
+                    <Box key={step._id}>
                         <Typography variant="h5">
                             {step?.data?.review}
                         </Typography>
                         <Typography variant="body1">
-                           Name: {step?.data?.name}
+                            Name: {step?.data?.name}
                         </Typography>
                         <Typography variant="body1">
-                           Name: {step?.data?.email}
+                            Email: {step?.data?.email}
                         </Typography>
-                        <Rating name="read-only" value={step?.data?.status} readOnly />
-                    </div>
+                        <Rating name="read-only" value={parseInt(step?.data?.status)} readOnly />
+                    </Box>
                 ))}
             </AutoPlaySwipeableViews>
             <MobileStepper

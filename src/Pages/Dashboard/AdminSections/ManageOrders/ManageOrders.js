@@ -16,6 +16,7 @@ const ManageOrders = () => {
     const [orders, setOrders] = useState([]);
     const [id, setId] = useState('');
     const [success, setSuccess] = useState(false);
+    const [success2, setSuccess2] = useState(false);
 
     useEffect(() => {
         axios.get('https://rocky-retreat-26040.herokuapp.com/orders')
@@ -38,6 +39,21 @@ const ManageOrders = () => {
         // console.log(data)
     };
 
+    const handleDelete = id => {
+        console.log(id);
+        const proceed = window.confirm('Are you sure, you want to delete?');
+        if (proceed) {
+            axios.delete(`https://rocky-retreat-26040.herokuapp.com/delete_order/${id}`)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.deletedCount > 0) {
+                        setSuccess2(true);
+                        const remainingOrders = orders.filter(user => user._id !== id);
+                        setOrders(remainingOrders);
+                    }
+                })
+        }
+    };
     const handleUpdate = (id) => {
         setId(id);
     }
@@ -83,7 +99,7 @@ const ManageOrders = () => {
                                         >
                                             <option value={row?.status} style={{ fontStyle: 'italic' }}>{row?.status}</option>
                                             <option value='Approved'>approve</option>
-                                            <option value='Shipped'>Ship</option>
+                                            <option value='Shipped'>ship</option>
                                         </NativeSelect>
                                         <Button size="small" type="submit" onClick={() => handleUpdate(row._id)} variant="outlined" endIcon={<AutorenewIcon />}>
                                             Update
@@ -102,7 +118,8 @@ const ManageOrders = () => {
                                 </TableCell>
 
                                 <TableCell align="right">
-                                    <Button size="small" variant="outlined" startIcon={<DeleteOutlineIcon />}>
+                                    <Button size="small"
+                                        onClick={() => handleDelete(row._id)} variant="outlined" startIcon={<DeleteOutlineIcon />}>
                                         Delete
                                     </Button>
                                 </TableCell>
@@ -110,7 +127,8 @@ const ManageOrders = () => {
                         ))}
                     </TableBody>
                 </Table>
-                {success && <Alert severity="success">Service Added successfully!</Alert>}
+                {success && <Alert severity="success">Service Updated Successfully!</Alert>}
+                {success2 && <Alert severity="success">Service Deleted Successfully!</Alert>}
             </TableContainer>
         </Paper>
     );

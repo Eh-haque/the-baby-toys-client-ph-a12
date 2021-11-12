@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../../../hooks/useAuth'
-import { Alert, Button } from '@mui/material';
+import { Alert, Button, Typography } from '@mui/material';
 import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -47,6 +47,9 @@ const MyOrders = () => {
     };
     return (
         <Paper>
+            <Typography variant="h4" sx={{ py: 2 }}>
+                My Orders
+            </Typography>
             <TableContainer>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
