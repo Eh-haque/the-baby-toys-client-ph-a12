@@ -10,12 +10,13 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Container, Rating } from '@mui/material';
+import { CircularProgress, Container, Rating } from '@mui/material';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const Reviews = () => {
     const [reviews, setReviews] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -38,8 +39,10 @@ const Reviews = () => {
         axios.get('https://rocky-retreat-26040.herokuapp.com/reviews')
             .then(res => {
                 setReviews(res.data);
+                setIsLoading(true);
             })
     });
+    if (!isLoading) { return <CircularProgress sx={{ mt: 5 }} /> }
 
     return (
         <Container>

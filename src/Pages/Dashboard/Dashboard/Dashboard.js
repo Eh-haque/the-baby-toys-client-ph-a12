@@ -25,21 +25,23 @@ import {
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import HomeIcon from '@mui/icons-material/Home';
-import MakeAdmin from './AdminSections/MakeAdmin/MakeAdmin';
-import AddService from './AdminSections/AddService/AddService';
+import MakeAdmin from '../AdminSections/MakeAdmin/MakeAdmin';
+import AddService from '../AdminSections/AddService/AddService';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import ManageOrders from './AdminSections/ManageOrders/ManageOrders';
+import ManageOrders from '../AdminSections/ManageOrders/ManageOrders';
 import LogoutIcon from '@mui/icons-material/Logout';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import ManageProducts from './AdminSections/ManageProducts/ManageProducts';
+import ManageProducts from '../AdminSections/ManageProducts/ManageProducts';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
-import MyOrders from './GeneralSections/MyOrders/MyOrders';
-import PayCost from './GeneralSections/PayCost/PayCost';
+import MyOrders from '../GeneralSections/MyOrders/MyOrders';
+import PayCost from '../GeneralSections/PayCost/PayCost';
 import PaymentIcon from '@mui/icons-material/Payment';
-import MyReview from './GeneralSections/MyReview/MyReview';
-import AdminRoute from '../Authenticate/AdminRoute/AdminRoute';
-import PrivateRoute from '../Authenticate/PrivateRoute/PrivateRoute';
+import MyReview from '../GeneralSections/MyReview/MyReview';
+import AdminRoute from '../../Authenticate/AdminRoute/AdminRoute';
+import PrivateRoute from '../../Authenticate/PrivateRoute/PrivateRoute';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 
 const drawerWidth = 240;
 
@@ -166,7 +168,7 @@ export default function Dashboard() {
           </NavLink>
           <Divider />
 
-          {admin && <Box>
+          {admin ? <Box>
             <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/make_admin`}>
               <ListItem button>
                 <ListItemIcon>
@@ -199,35 +201,35 @@ export default function Dashboard() {
                 <ListItemText primary="Manage All Product" />
               </ListItem>
             </NavLink>
-          </Box>}
+          </Box>
 
-          {/* general sections */}
-          {!admin && <Box>
-            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_orders`}>
-              <ListItem button>
-                <ListItemIcon>
-                  <ListAltIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Orders" />
-              </ListItem>
-            </NavLink>
-            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/pay_cost`}>
-              <ListItem button>
-                <ListItemIcon>
-                  <PaymentIcon />
-                </ListItemIcon>
-                <ListItemText primary="Pay Cost" />
-              </ListItem>
-            </NavLink>
-            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_review`}>
-              <ListItem button>
-                <ListItemIcon>
-                  <ListAltIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Review" />
-              </ListItem>
-            </NavLink>
-          </Box>}
+            : <Box>
+              {/* general sections */}
+              <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_orders`}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <ShoppingCartIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Orders" />
+                </ListItem>
+              </NavLink>
+              <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/pay_cost`}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <PaymentIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Pay Cost" />
+                </ListItem>
+              </NavLink>
+              <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_review`}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <RateReviewIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Review" />
+                </ListItem>
+              </NavLink>
+            </Box>}
 
           <Divider />
 
@@ -268,27 +270,29 @@ export default function Dashboard() {
               sapien faucibus et molestie ac.
             </Typography>
           </Route>
-          <AdminRoute path={`${path}/make_admin`}>
+
+          {/* admin routes */}
+          <AdminRoute exact path={`${path}/make_admin`}>
             <MakeAdmin />
           </AdminRoute>
-          <AdminRoute path={`${path}/add_services`}>
+          <AdminRoute exact path={`${path}/add_services`}>
             <AddService />
           </AdminRoute>
-          <AdminRoute path={`${path}/manage_orders`}>
+          <AdminRoute exact path={`${path}/manage_orders`}>
             <ManageOrders />
           </AdminRoute>
-          <AdminRoute path={`${path}/manage_products`}>
+          <AdminRoute exact path={`${path}/manage_products`}>
             <ManageProducts />
           </AdminRoute>
 
           {/* general sections */}
-          <PrivateRoute path={`${path}/my_orders`}>
+          <PrivateRoute exact path={`${path}/my_orders`}>
             <MyOrders />
           </PrivateRoute>
-          <PrivateRoute path={`${path}/pay_cost`}>
+          <PrivateRoute exact path={`${path}/pay_cost`}>
             <PayCost />
           </PrivateRoute>
-          <PrivateRoute path={`${path}/my_review`}>
+          <PrivateRoute exact path={`${path}/my_review`}>
             <MyReview />
           </PrivateRoute>
         </Switch>

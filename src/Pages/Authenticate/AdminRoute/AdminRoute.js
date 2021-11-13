@@ -1,11 +1,13 @@
-import { CircularProgress } from '@mui/material';
+import { Button, LinearProgress } from '@mui/material';
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Link } from 'react-router-dom';
 import useAuth from './../../../hooks/useAuth';
 
 const AdminRoute = ({ children, ...rest }) => {
+
     const { user, admin, isLoading } = useAuth();
-    if (isLoading) { return <CircularProgress /> }
+    if (isLoading && !admin) { return <><LinearProgress sx={{ mt: 5 }} /> <br /> <Link to='/dashboard' style={{ textDecoration: 'none' }}><Button variant="contained">Click Me</Button></Link></> }
+
     return (
         <Route
             {...rest}

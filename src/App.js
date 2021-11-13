@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Home from './Pages/Home/Home';
 import Explore from './Pages/Explore/Explore';
-import Dashboard from './Pages/Dashboard/Dashboard';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 import Login from './Pages/Authenticate/Login/Login';
 import Register from './Pages/Authenticate/Register/Register';
 import AuthProvider from './contexts/AuthProvider';

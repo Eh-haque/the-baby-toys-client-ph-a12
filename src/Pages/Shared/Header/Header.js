@@ -75,8 +75,8 @@ const Header = () => {
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="sticky">
+            <Box sx={{ flexGrow: 1, position: 'sticky', top: '0', left: '0', zIndex: 1 }}>
+                <AppBar position="static">
                     <Toolbar>
 
                         <Typography className={navLogo} variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'left' }}>

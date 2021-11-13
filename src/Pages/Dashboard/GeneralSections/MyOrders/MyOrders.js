@@ -22,7 +22,6 @@ const MyOrders = () => {
         axios.get('https://rocky-retreat-26040.herokuapp.com/orders')
             .then((response) => {
                 setOrders(response.data)
-                console.log(response.data)
             });
     }, []);
 
@@ -51,42 +50,47 @@ const MyOrders = () => {
                 My Orders
             </Typography>
             <TableContainer>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Email</TableCell>
-                            <TableCell align="right">Product Name</TableCell>
-                            <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">Address</TableCell>
-                            <TableCell align="right">Status</TableCell>
-                            <TableCell align="right">Delete</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {myOrders.map((row) => (
-                            <TableRow
-                                key={row._id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row?.email}</TableCell>
-                                <TableCell align="right">{row?.order?.title}</TableCell>
-                                <TableCell align="right">${row?.order?.price}</TableCell>
-                                <TableCell align="right">{row?.address}</TableCell>
-                                <TableCell align="right">{row?.status}</TableCell>
 
-                                <TableCell align="right">
-                                    <Button onClick={() => handleDelete(row?._id)} size="small" variant="outlined" startIcon={<DeleteOutlineIcon />}>
-                                        Delete
-                                    </Button>
-                                </TableCell>
+                {myOrders.length > 0 ?
+                    <> <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell align="right">Email</TableCell>
+                                <TableCell align="right">Product Name</TableCell>
+                                <TableCell align="right">Price</TableCell>
+                                <TableCell align="right">Address</TableCell>
+                                <TableCell align="right">Status</TableCell>
+                                <TableCell align="right">Delete</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {myOrders.map((row) => (
+                                <TableRow
+                                    key={row._id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell align="right">{row?.email}</TableCell>
+                                    <TableCell align="right">{row?.order?.title}</TableCell>
+                                    <TableCell align="right">${row?.order?.price}</TableCell>
+                                    <TableCell align="right">{row?.address}</TableCell>
+                                    <TableCell align="right">{row?.status}</TableCell>
+
+                                    <TableCell align="right">
+                                        <Button onClick={() => handleDelete(row?._id)} size="small" variant="outlined" startIcon={<DeleteOutlineIcon />}>
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    </> :
+                    <Typography variant="h5" sx={{ textAlign: 'center', py: 3, color: 'red' }}>Sorry! No Order Found</Typography>
+                }
                 {success && <Alert severity="success">Order Deleted Successfully!</Alert>}
             </TableContainer>
         </Paper>

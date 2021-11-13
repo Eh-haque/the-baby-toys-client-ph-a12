@@ -1,9 +1,10 @@
 import { Container, Typography, TextField, Button, CircularProgress, Alert } from '@mui/material';
 import React, { useState } from 'react';
 import { Grid } from '@mui/material';
-// import login from '../../../images/login.png'
+import login from '../../../media/banner/xps-Qrjx2nTBHVo-unsplash.jpg'
 import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
+import { Box } from '@mui/system';
 
 const Register = () => {
     const [loginData, setLoginData] = useState({});
@@ -27,10 +28,14 @@ const Register = () => {
     }
     return (
         <Container>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                 <Grid item sx={{ mt: 8 }} xs={12} md={6}>
-                    <Typography variant="h4" gutterBottom>Register</Typography>
-                    {!isLoading && <form onSubmit={handleLoginSubmit}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography variant="h4" gutterBottom>Register</Typography>
+                        {isLoading && <CircularProgress />}
+                    </Box>
+
+                    <form onSubmit={handleLoginSubmit}>
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
@@ -69,13 +74,12 @@ const Register = () => {
                             to="/login">
                             <Button variant="text">Already Registered? Please Login</Button>
                         </NavLink>
-                    </form>}
-                    {isLoading && <CircularProgress />}
+                    </form>
                     {user?.email && <Alert severity="success">User Created successfully!</Alert>}
                     {authError && <Alert severity="error">{authError}</Alert>}
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <img style={{ width: '100%' }} src={'login'} alt="" />
+                    <img style={{ width: '100%' }} src={login} alt="" />
                 </Grid>
             </Grid>
         </Container>

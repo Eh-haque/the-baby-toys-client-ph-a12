@@ -46,7 +46,7 @@ const MyReview = () => {
 
                 <Box sx={{ mt: 2 }}>
                     <InputLabel variant="standard">
-                        Status
+                        Rating
                     </InputLabel>
                     <NativeSelect sx={{ width: '75%' }}
                         defaultValue={5}
@@ -60,6 +60,7 @@ const MyReview = () => {
                         <option value={3}>3</option>
                         <option value={2}>2</option>
                         <option value={1}>1</option>
+                        <option value={0}>0</option>
                     </NativeSelect>
                 </Box>
 
