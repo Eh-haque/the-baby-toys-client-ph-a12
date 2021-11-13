@@ -6,7 +6,7 @@ import useAuth from './../../../hooks/useAuth';
 const AdminRoute = ({ children, ...rest }) => {
 
     const { user, admin, isLoading } = useAuth();
-    if (isLoading && !admin) { return <><LinearProgress sx={{ mt: 5 }} /> <br /> <Link to='/dashboard' style={{ textDecoration: 'none' }}><Button variant="contained">Click Me</Button></Link></> }
+    if (isLoading || !admin) { return <><LinearProgress sx={{ mt: 5 }} /> <br /><Link to='/dashboard' style={{ textDecoration: 'none' }}><Button variant="contained">Welcome To Dashboard</Button></Link></> }
 
     return (
         <Route

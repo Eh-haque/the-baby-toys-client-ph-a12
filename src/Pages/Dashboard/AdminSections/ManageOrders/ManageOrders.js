@@ -106,6 +106,7 @@ const ManageOrders = () => {
                                             <option value={row?.status} style={{ fontStyle: 'italic' }}>{row?.status}</option>
                                             <option value='Approved'>approve</option>
                                             <option value='Shipped'>ship</option>
+                                            <option value='Rejected'>reject</option>
                                         </NativeSelect>
                                         <Button size="small" type="submit" onClick={() => handleUpdate(row._id)} variant="outlined" endIcon={<AutorenewIcon />}>
                                             Update

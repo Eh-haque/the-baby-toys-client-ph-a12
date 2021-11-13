@@ -64,7 +64,8 @@ const AddService = () => {
                     id="standard-search2"
                     label="Service Price"
                     variant="standard"
-                    type="Number"
+                    type="number"
+                    step="any"
                     sx={{ mx: 'auto', width: '75%' }}
                     {...register("price", {
                         required: "Required",

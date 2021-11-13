@@ -10,7 +10,7 @@ const Footer = () => {
         <Box sx={{ flexGrow: 1 }}>
             <Divider />
             <Container>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }} sx={{ borderBottom: 1, py: 3 }}>
+                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }} sx={{ py: 3 }}>
                     <Grid item xs={2} sm={4} md={3}>
                         <img style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto', marginTop: '2rem', marginBottom: '2rem' }} src={logo} alt="" />
                         <Typography>
@@ -93,11 +93,11 @@ const Footer = () => {
                             </nav>
                         </Box>
                     </Grid>
-                </Grid>
+                </Grid><hr />
+                <Typography sx={{ p: 3 }}>
+                    Copyright © 2020. All Rights Reserved.
+                </Typography>
             </Container>
-            <Typography sx={{ p: 3 }}>
-                Copyright © 2020. All Rights Reserved.
-            </Typography>
         </Box>
     );
 };

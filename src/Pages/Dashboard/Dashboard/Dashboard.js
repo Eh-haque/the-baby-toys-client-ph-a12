@@ -168,7 +168,7 @@ export default function Dashboard() {
           </NavLink>
           <Divider />
 
-          {admin ? <Box>
+          {admin && <Box>
             <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/make_admin`}>
               <ListItem button>
                 <ListItemIcon>
@@ -201,35 +201,35 @@ export default function Dashboard() {
                 <ListItemText primary="Manage All Product" />
               </ListItem>
             </NavLink>
-          </Box>
+          </Box>}
+          {/* general sections */}
 
-            : <Box>
-              {/* general sections */}
-              <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_orders`}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <ShoppingCartIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Orders" />
-                </ListItem>
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/pay_cost`}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <PaymentIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Pay Cost" />
-                </ListItem>
-              </NavLink>
-              <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_review`}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <RateReviewIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Review" />
-                </ListItem>
-              </NavLink>
-            </Box>}
+          {!admin && <Box>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_orders`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Orders" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/pay_cost`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PaymentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Pay Cost" />
+              </ListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }} to={`${url}/my_review`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <RateReviewIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Review" />
+              </ListItem>
+            </NavLink>
+          </Box>}
 
           <Divider />
 
